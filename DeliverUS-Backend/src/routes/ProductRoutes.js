@@ -44,5 +44,18 @@ const loadFileRoutes = (app) => {
       ProductMiddleware.checkProductHasNotBeenOrdered,
       ProductController.destroy
     )
+
+  app.route('/products/:productId/promoted')
+    .patch(
+      isLoggedIn,
+      hasRole('owner'),
+      handleFilesUpload(['image'], process.env.PRODUCTS_FOLDER),
+      checkEntityExists(Product, 'productId'),
+      ProductMiddleware.checkProductOwnership,
+      ProductMiddleware.checkDiscountIsNotZero,
+      ProductValidation.update,
+      handleValidation,
+      ProductController.changePromotion
+    )
 }
 export default loadFileRoutes

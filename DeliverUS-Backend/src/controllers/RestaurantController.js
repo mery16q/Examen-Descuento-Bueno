@@ -72,6 +72,13 @@ const show = async function (req, res) {
 
 const update = async function (req, res) {
   try {
+    /*
+    const updateProducts = req.body.products.filter(product => product.promoted === true).map(product => {
+      product.price = product.price * (1 - req.body.discount) / 100
+      return product
+    })
+    req.body.products = updateProducts
+    */
     await Restaurant.update(req.body, { where: { id: req.params.restaurantId } })
     const updatedRestaurant = await Restaurant.findByPk(req.params.restaurantId)
     res.json(updatedRestaurant)

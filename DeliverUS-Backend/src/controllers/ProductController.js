@@ -71,6 +71,21 @@ const destroy = async function (req, res) {
   }
 }
 
+const changePromotion = async function (req, res) {
+  try {
+    const product = await Product.findByPk(req.params.id)
+    if (product.promoted === false) {
+      product.promoted = true
+    } else if (product.promoted === true) {
+      product.promoted = false
+    }
+    await product.save()
+    res.json(product)
+  } catch (err) {
+    res.status(500).send(err)
+  }
+}
+
 const popular = async function (req, res) {
   try {
     const topProducts = await Product.findAll(
@@ -113,6 +128,7 @@ const ProductController = {
   create,
   update,
   destroy,
-  popular
+  popular,
+  changePromotion
 }
 export default ProductController
