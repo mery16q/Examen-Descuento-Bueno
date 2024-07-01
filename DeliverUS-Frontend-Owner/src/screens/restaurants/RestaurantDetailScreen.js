@@ -20,6 +20,7 @@ export default function RestaurantDetailScreen ({ navigation, route }) {
     fetchRestaurantDetail()
   }, [route])
 
+  //poner en rojo el descuento, el calculo del descuento lo contamos aqui
   const renderHeader = () => {
     return (
       <View>
